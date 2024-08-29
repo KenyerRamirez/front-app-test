@@ -1,0 +1,65 @@
+/* Estilo global para eliminar márgenes y asegurar que el body ocupe toda la página */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.parent {
+  height: 100%;
+  min-height: 100vh;
+  background-color: #f8fbfc;
+}
+
+.navBar {
+  border-right: 1.5px solid #e5e7eb;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding-left: 20px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.navItem {
+  margin: 15px 10px;
+  padding-left: 24px;
+  padding: 6px 24px 5px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.navItem:hover {
+  background-color: #fafafa;
+}
+
+.navItemSelected {
+  margin: 15px 10px;
+  background-color: #f2f7f8;
+  padding-left: 24px;
+  padding: 6px 24px 5px;
+  border-radius: 10px;
+}
+
+.navIconSelected {
+  color: #80aee4;
+  transition: 0.3s;
+}
+
+.navIcon {
+  color: #7c7c7c;
+  transition: 0.3s;
+}
+
+.navBlockDown {
+  margin-top: auto;
+}
