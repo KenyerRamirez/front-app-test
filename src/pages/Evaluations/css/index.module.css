@@ -13,6 +13,13 @@
   margin-bottom: 10px;
 }
 
+.optionsEvaluaionBar {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgb(240, 240, 240);
+}
+
 .subTitle{
     color: #8b8b8b;
   cursor: default;
@@ -51,6 +58,38 @@
   height: 40px;
 }
 
+.buttonToSubmit {
+  border: 1.5px solid #b8b8b8;
+  width: 200px;
+  text-align: center;
+  background-color: #73bb57 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.buttonToReport {
+  border: 1.5px solid #b8b8b8;
+  width: 200px;
+  text-align: center;
+  background-color: #e48080 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 10px !important;
+}
+
+.buttonToDelete {
+  border: 1.5px solid #b8b8b8;
+  width: 120px;
+  text-align: center;
+  background-color: #e48080 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 10px !important;
+}
+
 .textCreate {
   color: white;
   font-size: 13px;
@@ -59,22 +98,14 @@
 
 .textAction {
   font-size: 12px;
+  color: white;
 }
 
 .viewButton {
   display: flex;
   border: 1px solid #dddddd;
-  margin-right: 10px;
-  padding: 2px;
-  border-radius: 5px;
-  height: 20px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5px;
-  width: 40px;
-  text-align: center;
-  cursor: pointer;
-  background-color: white;
+  height: 25px;
+  background-color: #80aee4 !important;
 }
 
 .viewButton:hover {
@@ -83,21 +114,6 @@
 
 .editButton:hover {
   background-color: #f1f3f9;
-}
-
-.editButton {
-  display: flex;
-  border: 1px solid #dddddd;
-  padding: 2px;
-  border-radius: 5px;
-  height: 20px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5px;
-  width: 40px;
-  text-align: center;
-  cursor: pointer;
-  background-color: white;
 }
 
 .listItem{
@@ -113,3 +129,53 @@
   background-color: transparent !important;
 }
 
+.questionInput {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  border-radius: 10px;
+  transition: .3s;
+}
+
+.deleteButtonContainer{
+  justify-content: center;
+  align-content: center;
+}
+
+.questionInput:hover {
+  background-color: #f0f0f0;
+}
+
+.totalScoreSpan{
+  font-weight: 400;
+}
+
+.totalScoreSpanNumber{
+  color: #80aee4;
+}
+
+.finalScoreText{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.categoryScore{
+  margin-bottom: 80px;
+}
+
+.question{
+  font-weight: 400;
+}
+
+.subTitleTwenty{
+  text-decoration: underline;
+}
+
+.score {
+  font-weight: 400;
+  color: #80aee4;
+}
+
+.scoreLimit{
+  color: black;
+}

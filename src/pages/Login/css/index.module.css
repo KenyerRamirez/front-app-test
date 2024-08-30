@@ -1,0 +1,75 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loginContainer {
+  background-color: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20vh;
+  margin-left: 6vh;
+}
+
+.RegisterContainer {
+  background-color: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 8vh;
+  margin-left: 6vh;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textField {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.textFieldLabel {
+  color: #8b8b8b;
+}
+
+.textFieldInput {
+  border-color: #e5e7eb;
+}
+
+.textFieldInput:hover {
+  border-color: #80aee4;
+}
+
+.submitButton {
+  margin-top: 26px !important;
+  margin-bottom: 16px !important;
+  background-color: #80aee4 !important;
+  color: white !important;
+}
+
+.loginTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.incorrectData {
+  color: red;
+  text-align: center;
+}

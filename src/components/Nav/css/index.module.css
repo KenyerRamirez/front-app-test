@@ -1,4 +1,3 @@
-/* Estilo global para eliminar márgenes y asegurar que el body ocupe toda la página */
 html,
 body {
   margin: 0;
@@ -22,6 +21,7 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
+  min-width: 600px;
 }
 
 .content {

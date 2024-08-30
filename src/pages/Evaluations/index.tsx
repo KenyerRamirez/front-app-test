@@ -1,37 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./css/index.module.css";
 import "../../css/index.css";
 import {
-  Avatar,
   Box,
   Button,
-  Checkbox,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { getEvaluations } from "../../services/evaluations";
+import { getEmployees } from "../../services/employees";
+import { useNavigate } from "react-router-dom";
+
+interface Column {
+  id: "usuarioEvaluado" | "evaluador" | "acciones";
+  label: string;
+  minWidth?: number;
+  align: "center"; // Center the text for better alignment
+}
+
+const columns: readonly Column[] = [
+  {
+    id: "usuarioEvaluado",
+    label: "Usuario Evaluado",
+    minWidth: 170,
+    align: "center",
+  },
+  { id: "evaluador", label: "Evaluador", minWidth: 170, align: "center" },
+  { id: "acciones", label: "Acciones", minWidth: 170, align: "center" },
+];
 
 const Index = () => {
-  const [checked, setChecked] = React.useState([1]);
+  const [evaluations, setEvaluations] = useState<any[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  const navigation = useNavigate();
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
   };
 
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const findEmployeeName = (employeeId: string) => {
+    const employee = employees.find((emp) => emp._id === employeeId);
+    return employee ? employee.nombre : "Desconocido";
+  };
+
+  const handleViewEvaluation = (id: string, name: string) => {
+    navigation(`/evaluations/${id}?user=${encodeURIComponent(name)}`);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const evaluationsData = await getEvaluations();
+        setEvaluations(evaluationsData);
+        const employeesData = await getEmployees();
+        setEmployees(employeesData);
+      } catch (error) {
+        console.log("Was an error trying to get evaluations:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Box className="container">
       <p className="title">Evaluaciones</p>
@@ -68,168 +113,68 @@ const Index = () => {
           </Box>
         </Box>
         <Box>
-          <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {[0, 1, 2, 3].map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem key={value} disablePadding>
-                  <ListItemButton className={styles.listItem}>
-                    <ListItemAvatar>
-                      <Avatar alt="John" src="#" />
-                    </ListItemAvatar>
-                    <ListItemText
-                      id={labelId}
-                      primary={`Line item ${value + 1}`}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginBottom: 1,
-                      }}
-                    >
-                      <Box className={styles.viewButton}>
-                        <p className={styles.textAction}>Ver</p>
-                      </Box>
-                      <Box className={styles.editButton}>
-                        <p className={styles.textAction}>Editar</p>
-                      </Box>
-                    </Box>
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Box>
-      </Box>
-      <Box className={styles.evaluationContainer}>
-        <h3>Categorías de evaluaciones</h3>
-        <p className={styles.subTitle}>
-          Gestione las categorías utilizadas en sus evaluaciones de feedback.
-        </p>
-        <Box className={styles.optionsBar}>
-          <Box className={styles.searchInputContainer}>
-            <SearchOutlinedIcon
-              sx={{
-                color: "#b8b8b8",
-                borderRight: "1.5px solid #e5e7eb",
-                paddingRight: "5px",
-                paddingLeft: "5px",
-                display: "flex",
-                alignItems: "center",
-              }}
+          <Paper sx={{ width: "100%", overflowY: "auto" }}>
+            <TableContainer sx={{ height: 300 }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {evaluations
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((evaluation, index) => {
+                      const usuarioEvaluadoName = findEmployeeName(
+                        evaluation.usuarioEvaluado
+                      );
+                      const evaluadorName = findEmployeeName(
+                        evaluation.evaluador
+                      );
+
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={index}
+                        >
+                          <TableCell align="center">
+                            {usuarioEvaluadoName}
+                          </TableCell>
+                          <TableCell align="center">{evaluadorName}</TableCell>
+                          <TableCell align="center">
+                            <Button
+                              className={styles.viewButton}
+                              onClick={() => handleViewEvaluation(evaluation._id, usuarioEvaluadoName)}
+                            >
+                              <p className={styles.textAction}>Ver</p>
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[4, 10, 25, 100]}
+              component="div"
+              count={evaluations.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <input
-              type="text"
-              name="search-evaluation"
-              id="search-evaluation"
-              className={styles.searchInput}
-              placeholder="Busca una categoría"
-            />
-          </Box>
-          <Box>
-            <Button className={styles.buttonToCreate}>
-              <p className={styles.textCreate}>Crear Categoría</p>
-            </Button>
-          </Box>
-        </Box>
-        <Box>
-          <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {[0, 1, 2, 3].map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem key={value} disablePadding>
-                  <ListItemButton className={styles.listItem}>
-                    <ListItemText
-                      id={labelId}
-                      primary={`Line item ${value + 1}`}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginBottom: 1,
-                      }}
-                    >
-                      <Box className={styles.viewButton}>
-                        <p className={styles.textAction}>Ver</p>
-                      </Box>
-                      <Box className={styles.editButton}>
-                        <p className={styles.textAction}>Editar</p>
-                      </Box>
-                    </Box>
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Box>
-      </Box>
-      <Box className={styles.evaluationContainer}>
-        <h3>Preguntas de evaluaciones</h3>
-        <p className={styles.subTitle}>
-          Gestione las preguntas utilizadas en sus evaluaciones de
-          retroalimentación.
-        </p>
-        <Box className={styles.optionsBar}>
-          <Box className={styles.searchInputContainer}>
-            <SearchOutlinedIcon
-              sx={{
-                color: "#b8b8b8",
-                borderRight: "1.5px solid #e5e7eb",
-                paddingRight: "5px",
-                paddingLeft: "5px",
-                display: "flex",
-                alignItems: "center",
-              }}
-            />
-            <input
-              type="text"
-              name="search-evaluation"
-              id="search-evaluation"
-              className={styles.searchInput}
-              placeholder="Busca una pregunta"
-            />
-          </Box>
-          <Box>
-            <Button className={styles.buttonToCreate}>
-              <p className={styles.textCreate}>Crear pregunta</p>
-            </Button>
-          </Box>
-        </Box>
-        <Box>
-          <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {[0, 1, 2, 3].map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem key={value} disablePadding>
-                  <ListItemButton className={styles.listItem}>
-                    <ListItemText
-                      id={labelId}
-                      primary={`Line item ${value + 1}`}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginBottom: 1,
-                      }}
-                    >
-                      <Box className={styles.viewButton}>
-                        <p className={styles.textAction}>Ver</p>
-                      </Box>
-                      <Box className={styles.editButton}>
-                        <p className={styles.textAction}>Editar</p>
-                      </Box>
-                    </Box>
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+          </Paper>
         </Box>
       </Box>
     </Box>
