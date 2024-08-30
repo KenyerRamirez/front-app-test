@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.title {
+  color: #8b8b8b;
+  cursor: default;
+}
+
+.container {
+  margin: 20px 40px 0 20px;
+}

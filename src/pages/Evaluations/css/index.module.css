@@ -1,0 +1,181 @@
+.evaluationContainer {
+  background-color: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+}
+
+.optionsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.optionsEvaluaionBar {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgb(240, 240, 240);
+}
+
+.subTitle{
+    color: #8b8b8b;
+  cursor: default;
+  margin-top: -10px;
+  margin-bottom: 50px;
+}
+
+.searchInputContainer {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 5px;
+  height: 40px;
+}
+
+.searchInput {
+  width: 80%;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  padding-left: 5px;
+}
+
+.numberOfEvaluations {
+  font-weight: 700;
+}
+
+.buttonToCreate {
+  border: 1.5px solid #b8b8b8;
+  width: 200px;
+  text-align: center;
+  background-color: #80aee4 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.buttonToSubmit {
+  border: 1.5px solid #b8b8b8;
+  width: 200px;
+  text-align: center;
+  background-color: #73bb57 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.buttonToReport {
+  border: 1.5px solid #b8b8b8;
+  width: 200px;
+  text-align: center;
+  background-color: #e48080 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 10px !important;
+}
+
+.buttonToDelete {
+  border: 1.5px solid #b8b8b8;
+  width: 120px;
+  text-align: center;
+  background-color: #e48080 !important;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 10px !important;
+}
+
+.textCreate {
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.textAction {
+  font-size: 12px;
+  color: white;
+}
+
+.viewButton {
+  display: flex;
+  border: 1px solid #dddddd;
+  height: 25px;
+  background-color: #80aee4 !important;
+}
+
+.viewButton:hover {
+  background-color: #f1f3f9;
+}
+
+.editButton:hover {
+  background-color: #f1f3f9;
+}
+
+.listItem{
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.listItem:hover,
+.listItem:active,
+.listItem:focus,
+.listItem:focus-visible {
+  background-color: transparent !important;
+}
+
+.questionInput {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  border-radius: 10px;
+  transition: .3s;
+}
+
+.deleteButtonContainer{
+  justify-content: center;
+  align-content: center;
+}
+
+.questionInput:hover {
+  background-color: #f0f0f0;
+}
+
+.totalScoreSpan{
+  font-weight: 400;
+}
+
+.totalScoreSpanNumber{
+  color: #80aee4;
+}
+
+.finalScoreText{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.categoryScore{
+  margin-bottom: 80px;
+}
+
+.question{
+  font-weight: 400;
+}
+
+.subTitleTwenty{
+  text-decoration: underline;
+}
+
+.score {
+  font-weight: 400;
+  color: #80aee4;
+}
+
+.scoreLimit{
+  color: black;
+}
