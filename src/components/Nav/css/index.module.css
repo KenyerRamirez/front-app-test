@@ -21,7 +21,6 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  min-width: 600px;
 }
 
 .content {

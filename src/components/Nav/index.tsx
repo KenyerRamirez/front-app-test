@@ -59,7 +59,7 @@ const Index = ({ children }: NavProps) => {
   return (
     <Grid2 container spacing={2} className={styles.parent}>
       {!isHidden && (
-        <Grid2 size={1} className={styles.navBar}>
+        <Grid2 size="auto" className={styles.navBar}>
           <Box className={styles.navBlockUp}>
             <Box
               className={
@@ -186,7 +186,7 @@ const Index = ({ children }: NavProps) => {
           </Box>
         </Grid2>
       )}
-      <Grid2 size={11}>{children}</Grid2>
+      <Grid2 size={10} sx={{ marginX: "auto" }}>{children}</Grid2>
     </Grid2>
   );
 };
