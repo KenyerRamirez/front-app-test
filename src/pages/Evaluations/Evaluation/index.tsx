@@ -9,6 +9,7 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import EvaluationPDF from "./pdfSheet";
+import ButtonGoBack from "../../../components/ButtonGoBack";
 
 // Define los tipos para los datos de la evaluación
 interface Pregunta {
@@ -121,12 +122,15 @@ const Index = () => {
 
   return (
     <Box className="container">
-      <p className="title">Evaluación</p>
+      <Box className="headerPageContainer">
+        <ButtonGoBack uri="evaluations" module="Evaluaciones" />
+        <p className="title">Evaluación</p>
+      </Box>
       <Box className={styles.evaluationContainer}>
         <h3>Evaluación</h3>
         <p className={styles.subTitle}>Gestione la evaluación de {name}</p>
         <Box className={styles.optionsEvaluaionBar}>
-        {evaluation && (
+          {evaluation && (
             <PDFDownloadLink
               document={<EvaluationPDF evaluation={evaluation} name={name} />}
               fileName={`evaluacion-de-${name}.pdf`}
