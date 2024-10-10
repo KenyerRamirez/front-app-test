@@ -36,6 +36,29 @@ export const getEvaluationById = async ({ id }: GetEvaluationByIdParams) => {
   }
 };
 
+export const createEvaluation = async (data: any) => {
+  console.log("la data", data);
+  try {
+    const authToken = await localStorage.getItem("Access-token");
+    const evaluationData = await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/evaluations/`,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+      data: {
+        tipoEvaluación: data.tipoEvaluación,
+        usuarioEvaluado: data.usuarioEvaluado,
+        evaluador: data.evaluador,
+        preguntas: data.preguntas,
+      },
+    });
+    return evaluationData.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 interface Pregunta {
   _id: string;
   categoria: string;

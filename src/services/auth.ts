@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtVerify } from "jose";
 
 export const loginUsers = async (username: string, password: string) => {
   try {
@@ -36,4 +37,17 @@ export const registerUsers = async (
   } catch (error) {
     throw error;
   }
+};
+
+export const getUserIdByToken = async () => {
+  const token = await localStorage.getItem("Access-token");
+
+  if (!token) {
+    console.log("No token found");
+    return null;
+  }
+  const secret = new TextEncoder().encode(process.env.REACT_APP_SECRET_KEY);
+
+  const { payload } = await jwtVerify(token, secret);
+  return payload.sub;
 };

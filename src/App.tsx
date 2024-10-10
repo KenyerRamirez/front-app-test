@@ -3,6 +3,7 @@ import logo from "./assets/icons/logo.svg";
 import Dashboard from "./pages/Dashboard";
 import Evaluations from "./pages/Evaluations/index";
 import Evaluation from "./pages/Evaluations/Evaluation/index";
+import CreateEvaluation from "./pages/Evaluations/CreateEvaluation/index";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Login/Register";
 import Nav from "./components/Nav";
@@ -17,6 +18,10 @@ function App() {
         <Route
           path="/evaluations"
           element={<ProtectedRoute element={<Evaluations />} />}
+        />
+        <Route
+          path="/evaluations/create"
+          element={<ProtectedRoute element={<CreateEvaluation />} />}
         />
         <Route
           path="/evaluations/:id"

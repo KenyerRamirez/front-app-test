@@ -16,7 +16,7 @@ import {
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { getEvaluations } from "../../services/evaluations";
 import { getEmployees } from "../../services/employees";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Column {
   id: "usuarioEvaluado" | "evaluador" | "acciones";
@@ -107,9 +107,11 @@ const Index = () => {
             />
           </Box>
           <Box>
-            <Button className={styles.buttonToCreate}>
-              <p className={styles.textCreate}>Crear Evaluación</p>
-            </Button>
+            <Link to="/evaluations/create">
+              <Button className={styles.buttonToCreate}>
+                <p className={styles.textCreate}>Crear Evaluación</p>
+              </Button>
+            </Link>
           </Box>
         </Box>
         <Box>
@@ -154,7 +156,12 @@ const Index = () => {
                           <TableCell align="center">
                             <Button
                               className={styles.viewButton}
-                              onClick={() => handleViewEvaluation(evaluation._id, usuarioEvaluadoName)}
+                              onClick={() =>
+                                handleViewEvaluation(
+                                  evaluation._id,
+                                  usuarioEvaluadoName
+                                )
+                              }
                             >
                               <p className={styles.textAction}>Ver</p>
                             </Button>

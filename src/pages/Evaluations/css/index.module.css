@@ -179,3 +179,29 @@
 .scoreLimit{
   color: black;
 }
+
+.userBox{
+  border: 1.5px solid #e5e7eb;
+  margin: 20px auto;
+  width: 95%;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s;
+  display: flex;
+  align-items: center;
+}
+
+.userBox:hover{
+  background-color: #f4f5f7;
+}
+
+.userJob {
+  color: #b8b8b8;
+  font-size: 14px;
+}
+
+.userName{
+  font-weight: 550;
+  padding-right: 15px;
+}
