@@ -38,6 +38,7 @@ const columns: readonly Column[] = [
 
 const Index = () => {
   const [evaluations, setEvaluations] = useState<any[]>([]);
+  const [searchUser, setSearchUser] = useState<string>("");
   const [employees, setEmployees] = useState<any[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
@@ -63,6 +64,12 @@ const Index = () => {
   const handleViewEvaluation = (id: string, name: string) => {
     navigation(`/evaluations/${id}?user=${encodeURIComponent(name)}`);
   };
+
+  const filteredResults = evaluations.filter((item) =>
+    findEmployeeName(item.usuarioEvaluado)
+      .toLowerCase()
+      .includes(searchUser.toLowerCase())
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -103,7 +110,8 @@ const Index = () => {
               name="search-evaluation"
               id="search-evaluation"
               className={styles.searchInput}
-              placeholder="Busca un usuario"
+              placeholder="Busca el usuario evaluado"
+              onChange={(e) => setSearchUser(e.target.value)}
             />
           </Box>
           <Box>
@@ -132,7 +140,7 @@ const Index = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {evaluations
+                  {filteredResults
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((evaluation, index) => {
                       const usuarioEvaluadoName = findEmployeeName(
@@ -175,7 +183,7 @@ const Index = () => {
             <TablePagination
               rowsPerPageOptions={[4, 10, 25, 100]}
               component="div"
-              count={evaluations.length}
+              count={filteredResults.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

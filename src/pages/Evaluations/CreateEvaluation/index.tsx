@@ -23,6 +23,7 @@ interface QuestionsData {
 
 const Index = () => {
   const [userData, setUserData] = useState<UserData[]>([]);
+  const [searchUser, setSearchUser] = useState<string>("");
   const [questions, setQuestions] = useState<QuestionsData[]>([]);
   const [userSelected, setUserSelected] = useState<UserData | null>(null);
   const [value, setValue] = useState<number | null>(null);
@@ -84,8 +85,12 @@ const Index = () => {
     };
   }
 
+  const filteredResults = userData.filter((item) =>
+    item.nombre.toLowerCase().includes(searchUser.toLowerCase())
+  );
+
   const usersOrdered = () => {
-    return userData
+    return filteredResults
       ?.sort((a, b) => a.nombre.localeCompare(b.nombre))
       .map((item, index) => (
         <Box
@@ -139,6 +144,7 @@ const Index = () => {
                   id="search-evaluation"
                   className={styles.searchInput}
                   placeholder="Busca un usuario"
+                  onChange={(e) => setSearchUser(e.target.value)}
                 />
               </Box>
             </Box>
