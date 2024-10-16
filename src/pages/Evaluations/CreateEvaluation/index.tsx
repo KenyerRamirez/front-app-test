@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/index.module.css";
 import "../../../css/index.css";
-import { Avatar, Box, Rating, Typography } from "@mui/material";
+import { Avatar, Box, Button, Modal, Rating, Tooltip, Typography } from "@mui/material";
 import ButtonGoBack from "../../../components/ButtonGoBack";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { getEmployees } from "../../../services/employees";
 import { getQuestions } from "../../../services/questions";
 import CreateEvaluationForm from "../../../components/CreateEvaluationForm/CreateEvaluationForm";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface UserData {
   _id: string;
@@ -27,6 +28,14 @@ const Index = () => {
   const [questions, setQuestions] = useState<QuestionsData[]>([]);
   const [userSelected, setUserSelected] = useState<UserData | null>(null);
   const [value, setValue] = useState<number | null>(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
+  const handleCancelEvaluation = () => {
+    setUserSelected(null)
+    handleCloseModal()
+  }
 
   const TYPE_EVALUATION = "Evaluación";
 
@@ -111,19 +120,81 @@ const Index = () => {
       ));
   };
 
+  const confirmModal = (
+    <Modal
+      open={open}
+      onClose={handleCloseModal}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 400,
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 1,
+        }}
+      >
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          ¿Seguro que quiere cancelar la evaluación?
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Las preguntas evaluadas para este usuario van a descartarse.
+        </Typography>
+        <Box sx={{ width: "80%", margin: "auto", textAlign: "center", mt: 3 }}>
+          <Button variant="contained" color="error" sx={{ mr: 2 }} onClick={handleCancelEvaluation}>
+            SI
+          </Button>
+          <Button variant="outlined" color="success" onClick={handleCloseModal}>
+            NO
+          </Button>
+        </Box>
+      </Box>
+    </Modal>
+  );
+
   return (
     <Box className="container">
+      {confirmModal}
       <Box className="headerPageContainer">
         <ButtonGoBack uri="evaluations" module="Evaluaciones" />
         <p className="title">Crear evaluación</p>
       </Box>
       <Box className={styles.evaluationContainer}>
         <h3>Crear evaluación</h3>
-        <p className={styles.subTitle}>
-          {userSelected === null
-            ? "Seleccione el usuario que quiere evaluar"
-            : "Seleccione la respuesta que más crea conveniente a la pregunta"}
-        </p>
+        {userSelected === null ? (
+          <p className={styles.subTitle}>
+            Seleccione el usuario que quiere evaluar
+          </p>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p className={styles.subTitle}>
+              Seleccione la respuesta que más crea conveniente a la pregunta
+            </p>
+            <Tooltip title="Cancelar evaluación">
+              <CancelIcon
+                sx={{
+                  color: "#f55a5a",
+                  fontSize: 30,
+                  mt: -5.5,
+                  cursor: "pointer",
+                }}
+                onClick={handleOpenModal}
+              />
+            </Tooltip>
+          </div>
+        )}
         {userSelected === null ? (
           <Box>
             <Box className={styles.optionsBar}>
