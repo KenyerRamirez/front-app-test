@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/index.module.css";
 import "../../../css/index.css";
-import { Avatar, Box, Button, Modal, Rating, Tooltip, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Modal,
+  Rating,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import ButtonGoBack from "../../../components/ButtonGoBack";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { getEmployees } from "../../../services/employees";
@@ -33,9 +41,9 @@ const Index = () => {
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
   const handleCancelEvaluation = () => {
-    setUserSelected(null)
-    handleCloseModal()
-  }
+    setUserSelected(null);
+    handleCloseModal();
+  };
 
   const TYPE_EVALUATION = "Evaluación";
 
@@ -147,7 +155,12 @@ const Index = () => {
           Las preguntas evaluadas para este usuario van a descartarse.
         </Typography>
         <Box sx={{ width: "80%", margin: "auto", textAlign: "center", mt: 3 }}>
-          <Button variant="contained" color="error" sx={{ mr: 2 }} onClick={handleCancelEvaluation}>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{ mr: 2 }}
+            onClick={handleCancelEvaluation}
+          >
             SI
           </Button>
           <Button variant="outlined" color="success" onClick={handleCloseModal}>
@@ -162,7 +175,9 @@ const Index = () => {
     <Box className="container">
       {confirmModal}
       <Box className="headerPageContainer">
-        <ButtonGoBack uri="evaluations" module="Evaluaciones" />
+        {userSelected === null && (
+          <ButtonGoBack uri="evaluations" module="Evaluaciones" />
+        )}
         <p className="title">Crear evaluación</p>
       </Box>
       <Box className={styles.evaluationContainer}>
